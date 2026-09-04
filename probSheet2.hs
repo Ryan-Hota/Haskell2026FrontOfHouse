@@ -25,7 +25,6 @@ productDigits :: Integer -> Integer
 productDigits = undefined
 
 -- 5. Sum of integers from a to b (inclusive), assuming a ≤ b.
---    Use an accumulator to make it tail‑recursive.
 sumRange :: Integer -> Integer -> Integer
 sumRange = undefined
 
@@ -60,12 +59,6 @@ binom = undefined
 --     e.g., baseConvert 123 4 8 = 33   (because 123₄ = 27₁₀ = 33₈)
 baseConvert :: Integer -> Integer -> Integer -> Integer
 baseConvert = undefined
-
--- 12. Given a finite field of size q, and a vector space over that field with dimension n,
---     return the number of ordered tuples of vectors which form a basis of the space.
---     Use recursion and multiplication.
-countBases :: Integer -> Integer -> Integer
-countBases = undefined
 
 -- 13. Power tower of height n with base n.
 --     Compute n^(n^(…^n)) where the tower has n occurrences of n.

@@ -108,3 +108,84 @@ toPair = undefined
 
 fromPair :: (Integer, Integer) -> Integer
 fromPair = undefined
+
+test =
+  and
+    [ -- id'
+      id' 0 == 0
+    , id' 1 == 1
+    , id' (-10) == (-10)
+    , id' 42 == 42
+
+      -- fst'
+    , fst' (1, 2) == 1
+    , fst' (-5, 10) == (-5)
+
+      -- snd'
+    , snd' (1, 2) == 2
+    , snd' (-5, 10) == 10
+
+      -- addDigit
+    , addDigit 0 0 == (0, 0)
+    , addDigit 3 4 == (7, 0)
+    , addDigit 9 9 == (8, 1)
+    , addDigit 5 7 == (2, 1)
+
+      -- max'
+    , max' 3 5 == 5
+    , max' 10 2 == 10
+    , max' (-3) (-7) == (-3)
+    , max' 4 4 == 4
+
+      -- min'
+    , min' 3 5 == 3
+    , min' 10 2 == 2
+    , min' (-3) (-7) == (-7)
+    , min' 4 4 == 4
+
+      -- vecAdd
+    , vecAdd (1, 2) (3, 4) == (4, 6)
+    , vecAdd (-1, 5) (2, -3) == (1, 2)
+    , vecAdd (0, 0) (7, -2) == (7, -2)
+
+      -- scalarMul
+    , scalarMul 2 (3, 4) == (6, 8)
+    , scalarMul (-3) (2, -5) == (-6, 15)
+    , scalarMul 0 (100, 200) == (0, 0)
+
+      -- matAdd
+    , matAdd ((1,2),(3,4)) ((5,6),(7,8))
+        == ((6,8),(10,12))
+    , matAdd ((0,0),(0,0)) ((1,2),(3,4))
+        == ((1,2),(3,4))
+
+      -- transpose
+    , transpose ((1,2),(3,4)) == ((1,3),(2,4))
+    , transpose ((5,6),(7,8)) == ((5,7),(6,8))
+
+      -- matMul
+    , matMul ((1,2),(3,4)) ((5,6),(7,8))
+        == ((19,22),(43,50))
+    , matMul ((1,0),(0,1)) ((3,4),(5,6))
+        == ((3,4),(5,6))
+    , matMul ((0,0),(0,0)) ((1,2),(3,4))
+        == ((0,0),(0,0))
+
+      -- pair
+    , pair (+1) (*2) 5 == (6,10)
+    , pair (\x -> x*x) (\x -> x+10) 3 == (9,13)
+
+      -- corrFunc
+    , corrFunc 2 3 == myFunc (2,3)
+    , corrFunc 0 5 == myFunc (0,5)
+    , corrFunc (-2) 4 == myFunc (-2,4)
+
+      -- toPair / fromPair: inverse-property tests
+    , fromPair (toPair 0) == 0
+    , fromPair (toPair 1) == 1
+    , fromPair (toPair (-1)) == (-1)
+    , fromPair (toPair 10) == 10
+    , fromPair (toPair (-10)) == (-10)
+    , toPair (fromPair (3,4)) == (3,4)
+    , toPair (fromPair (-2,5)) == (-2,5)
+    ]

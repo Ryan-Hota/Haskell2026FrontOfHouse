@@ -123,7 +123,7 @@ testAll =
     testAtomic (map' id, "map' id") ([],[] :: [Int]) >>>
 
     testAtomic (compAll [], "compAll []") (10 :: Int, 10) >>>
-    testAtomic (compAll [(+1), (+2), (+3)], "compAll [(+1), (+2), (+3)]") (10 :: Int, 27) >>>
+    testAtomic (compAll [(+1), (*2), (+3)], "compAll [(+1), (*2), (+3)]") (10 :: Int, 27) >>>
     testAtomic (
             compAll [(\x -> (if even x then x `div` 2 else 3 * x + 1)) | _ <- [1 :: Int .. 9]], 
             "compAll [(\\x -> (if even x then x `div` 2 else 3 * x + 1)) | _ <- [1 .. 9]]"

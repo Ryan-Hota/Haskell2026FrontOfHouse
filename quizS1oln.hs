@@ -23,3 +23,22 @@ f xs = foldr (/=) False xs
 -- A3)
 -- >>> :t f 
 -- f :: Foldable t => t Bool -> Bool
+-- >>> f [False, False, False, False] 
+-- False
+-- >>> f [True, False, False, False]
+-- True
+
+-- Q4) Given the decimal expansions of two numbers, compute the decimal expansion of their sum
+-- >>> add [0,8,5,3,3] [0,2,8,6,8]
+-- [1,1,4,0,1]
+
+-- A4)
+addWithCarry :: [Int] -> [Int] -> ([Int], Int)
+addWithCarry [] [] = ([], 0)
+addWithCarry (x:xs) (y:ys) = let 
+    (prevSum, prevCarry) = addWithCarry xs ys
+    (newCarry, newDigit) = (x+y+prevCarry) `divMod` 10 
+    in (newDigit : prevSum, newCarry)
+
+add :: [Int] -> [Int] -> [Int]
+add xs ys = fst $ addWithCarry xs ys

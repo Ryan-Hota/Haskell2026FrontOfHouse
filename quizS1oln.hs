@@ -1,10 +1,13 @@
--- Q1) make a function that drops the odd index elements of a list 
+-- Q1) make a function that drops the odd index elements of a list, recursively
 -- >>> dropOdds [1,2,3,4,5]
 -- [1,3,5]
 
 -- A1)
 dropOdds :: [a] -> [a]
-dropOdds xs = [ x | (i, x) <- zip [0..] xs, i `mod` 2 /= 1 ]
+dropOdds [] = []
+dropOdds [x] = [x]
+dropOdds (x:y:ys) = x:dropOdds ys
+
 
 -- Q2) make a function that takes xs (a list of lists of numbers) 
 -- and returns the list of sums of the members of the nonempty lists in xs 

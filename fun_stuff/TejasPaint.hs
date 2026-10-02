@@ -1,6 +1,15 @@
 import Data.List (intercalate)
-red, green, yellow, blue, magenta, cyan, black, white :: String
 
+-- Start with printBoard startBoard
+-- Then you can do your drawing like
+-- printBoard (putPixel it (4,5) red)
+-- printBoard (putCircle2 it (10,10) 8 green)
+-- printBoard (putLine it (1,2) (5,28) magenta)
+
+
+
+red, green, yellow, blue, magenta, cyan, black, white :: String
+-- Ansi codes for coloured text
 red  = "\ESC[31m"
 green  = "\ESC[32m"
 yellow  = "\ESC[33m"
@@ -27,11 +36,11 @@ instance Show Board where
 
 printBoard :: Board -> IO Board
 printBoard (Wrap b) = do
-    putStrLn (intercalate "\n" (map concat b)++white)
+    putStrLn (intercalate "\n" (map concat b)++white) -- Using putStrLn as it supports escape codes and ansi
     pure $ Wrap b
 
 startBoard :: Board
-startBoard = Wrap . concat $ replicate 100 [concat $ replicate 100 [white ++ block]]
+startBoard = Wrap . concat $ replicate 30 [concat $ replicate 30 [white ++ block]]
 
 
 putPixel :: Board -> (Int, Int) -> String -> Board
@@ -53,11 +62,12 @@ putCircle b (x, y) r color = foldl f b ang where
 
 putCircle2 :: Board -> (Int, Int) -> Int -> String -> Board
 putCircle2 (Wrap b) (x0,y0) r color = foldr (\(x,y) b' -> putPixel b' (x,y) color) (Wrap b) points where
-    -- For every pixel, check if within radius, and error bound maybe sqrt 1 pixel?
+    -- For every pixel, check if within radius, and error bound
     (gridSizeX,gridSizeY) = (length b, length $ head b)
     points = [(x,y) | x <- [0..(gridSizeX-1)], y <- [0..(gridSizeY-1)], abs((x - x0)^(2::Int) + (y - y0)^(2::Int) - r^(2::Int)) <= r ]
 
 
+-- The algorithm used to generate points
 bresenham :: (Int, Int) -> (Int, Int) -> [(Int, Int)]
 bresenham (x1,y1) (x2,y2) = iteration x1 y1 initialError where
     dx = abs (x2 - x1)

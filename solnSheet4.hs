@@ -23,7 +23,7 @@ data Vector = Vect Integer Integer
 
 vecAdd (Vect a b) (Vect c d) = Vect (a+c) (b+d)
 
-data Matrix = Mat Integer Integer Integer Integer deriving Show
+data Matrix = Mat Integer Integer Integer Integer
 
 toLinearMap :: Matrix -> (Vector -> Vector)
 toLinearMap (Mat a b c d) = t where
